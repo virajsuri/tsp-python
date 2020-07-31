@@ -5,9 +5,10 @@ import math
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 import matplotlib.pyplot as plt
-import numpy as np
+# import numpy as np
 
 def readFile():
+    global pathInput
     pathInput = input("Enter TSP filename: ")
     path = "../data/"+pathInput
     counter = 0
@@ -25,7 +26,7 @@ def readFile():
             if counter==4: #length line
                 splits=line.split()
                 length=splits[1]
-                print(length)
+                # print(length)
             continue
         
         # print("length "+length)
@@ -65,7 +66,9 @@ def compute_euclidean_distance_matrix(locations):
 
 def print_solution(manager, routing, solution):
     """Prints solution on console."""
-    print('Objective: {}'.format(solution.ObjectiveValue()))
+    # print('Objective: {}'.format(solution.ObjectiveValue()))
+    global objective_distance
+    objective_distance = 'Length: {}'.format(solution.ObjectiveValue())
     index = routing.Start(0)
     plan_output = 'Route:\n'
     route_distance = 0
@@ -127,8 +130,8 @@ def main():
     solution = routing.SolveWithParameters(search_parameters)
 
     # Print solution on console.
-    # if solution:
-    #     print_solution(manager, routing, solution)
+    if solution:
+        print_solution(manager, routing, solution)
     
     routesArray = get_routes(solution, routing, manager)
     # Display the routes.
@@ -136,7 +139,7 @@ def main():
     # for i, route in enumerate(routes):
     #     print('Route', i, route)
 
-    
+    print(objective_distance)
     xVal=[]
     yVal=[]
     for x in routesArray[0]:
@@ -145,8 +148,10 @@ def main():
 
     # print(xVal)
     # print(yVal)
-    plt.plot(xVal, yVal,'-bo', linewidth=2) 
+    plt.plot(xVal, yVal,'-bo', linewidth=2)
+    plt.title(pathInput+" | "+objective_distance) 
     plt.tight_layout()
+    plt.savefig("../data/output/"+pathInput+" or-tools.jpg")
     plt.show()
 
 if __name__ == '__main__':

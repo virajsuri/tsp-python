@@ -1,12 +1,10 @@
-"""Simple travelling salesman problem on a circuit board."""
-
 from __future__ import print_function
-import math
-import os
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
+
 import matplotlib.pyplot as plt
-# import numpy as np
+import math
+import os
 
 def readFile():
     print("available TSP files in /data/ as .txt")

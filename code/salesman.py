@@ -2,12 +2,18 @@
 
 from __future__ import print_function
 import math
+import os
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 import matplotlib.pyplot as plt
 # import numpy as np
 
 def readFile():
+    print("available TSP files in /data/ as .txt")
+    for file in os.listdir("../data/"):
+        if file.endswith(".txt"):
+            print(file)
+
     global pathInput
     pathInput = input("Enter TSP filename: ")
     path = "../data/"+pathInput

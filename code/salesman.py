@@ -155,7 +155,7 @@ def main():
     plt.plot(xVal, yVal,'-bo', linewidth=2)
     plt.title(pathInput+" | "+objective_distance) 
     plt.tight_layout()
-    plt.savefig("../data/output/"+pathInput+" or-tools.jpg")
+    plt.savefig("../data/output/"+pathInput)
     plt.show()
 
 if __name__ == '__main__':
